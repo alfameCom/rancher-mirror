@@ -116,6 +116,7 @@ rancher/nginx-ingress-controller:nginx-1.9.3-hardened1
 rancher/nginx-ingress-controller:v1.10.4-hardened2
 rancher/rancher-agent:v2.8.4
 rancher/rancher-agent:v2.8.5
+rancher/rancher-webhook:v0.4.16
 rancher/rancher-webhook:v0.4.18
 rancher/rke2-cloud-provider:v1.28.2-build20231016
 rancher/rke2-cloud-provider:v1.29.3-build20240515
