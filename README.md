@@ -70,8 +70,24 @@ sort -u -o images.txt images.txt
 ```
 
 Rancher-side images (`rancher-agent`, `fleet-agent`, `shell`, `rancher-webhook`,
-`system-upgrade-controller`) are not in the RKE2 release lists and are maintained
-by hand.
+`system-upgrade-controller`, `system-agent`, `kubectl`) are not in the RKE2 release
+lists and are maintained by hand. Add them **before** upgrading Rancher: right after
+the upgrade, Rancher redeploys its agents in every downstream cluster, and a cluster
+that cannot pull the new `rancher-agent` loses its connection to Rancher.
+
+For a Rancher version, the images are in that release's `rancher-images.txt`:
+
+```sh
+v=v2.10.3
+curl -sL "https://github.com/rancher/rancher/releases/download/$v/rancher-images.txt" \
+  | grep -E '^rancher/(rancher-agent|fleet-agent|rancher-webhook|shell|system-agent):'
+```
+
+`rancher-images.txt` lists several `shell` and `kubectl` tags. Take the `shell` tag
+from `defaultShellVersion` in that release's `build.yaml`. Take the
+`system-upgrade-controller` and `kubectl` tags from the `values.yaml` of the
+`system-upgrade-controller` chart that Rancher installs
+(`CATTLE_SYSTEM_UPGRADE_CONTROLLER_CHART_VERSION` in `package/Dockerfile`).
 
 ## Source and integrity
 
